@@ -94,6 +94,7 @@ int getbalance(struct avlnode *node){
 }
 
 struct avlnode *insert(struct avlnode *node, int key){
+    //1.basic insertion
     if (node == NULL){
         return create_node(key);
     }
@@ -109,9 +110,10 @@ struct avlnode *insert(struct avlnode *node, int key){
         return node;
     }
 
-    // update the height and balance
+    //2. update the height 
     node->height = 1 + max(height(node->left), height(node->right));
 
+    //3. balance
     int balance = getbalance(node);
 
     // single rotation cases
@@ -161,6 +163,7 @@ struct avlnode *delete(struct avlnode *root, int key){
             }
             free(temp);
         }
+        //two children case
         else{
             struct avlnode* temp=minvalue_node(root->right);
             root->key=temp->key;
